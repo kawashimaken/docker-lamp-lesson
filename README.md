@@ -2,6 +2,15 @@
 
 PHP初心者の勉強用
 
+Laravelなどのフレームワークは使用せず、基礎の勉強を意識して、PHPの基本を理解するのが目的です。
+
+PHPを教える人、PHPを勉強する人みんなの参考になる、分かりやすいPHPのアプリケーションのサンプルコードになればと思います。
+
+MITライセンスなので、自由にForkして、自由に使ってください。
+
+Pull Requestが大歓迎です。
+
+
 スクリーンショット
 ![ユーザ一覧画面1](https://github.com/kawashimaken/docker-lamp-lesson/raw/master/screenshot/member.png)
 
