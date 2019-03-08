@@ -1,0 +1,31 @@
+version: "2"
+services:
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - ./mysql/db:/var/lib/mysql
+  php:
+    build: ./php
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=pass
+    links:
+      - mysql
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
+volumes:
+  db:
