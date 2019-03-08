@@ -3,7 +3,7 @@
 PHP初心者の勉強用
 
 スクリーンショット
-![ユーザ一覧画面](https://github.com/kawashimaken/docker-lamp-lesson/raw/master/screenshot/members.png)
+![ユーザ一覧画面](https://github.com/kawashimaken/docker-lamp-lesson/raw/master/screenshot/member.png)
 
 ![掲示板画面](https://github.com/kawashimaken/docker-lamp-lesson/raw/master/screenshot/bbs.png)
 
