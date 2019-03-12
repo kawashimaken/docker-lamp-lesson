@@ -2,6 +2,8 @@
 
 PHP初心者の勉強用
 
+記事：https://kokensha.xyz/web/php-lesson-sample-code-at-github/
+
 Laravelなどのフレームワークは使用せず、基礎の勉強を意識して、PHPの基本を理解するのが目的です。
 
 PHPを教える人、PHPを勉強する人みんなの参考になる、分かりやすいPHPのアプリケーションのサンプルコードになればと思います。
