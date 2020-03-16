@@ -57,7 +57,11 @@ phpmyadminからデータベースやテーブルの詳細を確認できます�
 
 勉強用の内容ですので、本番環境は使えません。
 
-https://kokensha.xyz
+# 学習サポート
+
+内容の学習にサポートが必要な場合は、川島のITスキルサロンの参加をぜひご検討ください。
+
+https://note.com/kawashimaken/m/me13f2d6e0ab8
 
 
 
