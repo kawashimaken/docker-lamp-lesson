@@ -3,13 +3,24 @@ services:
   mysql:
     build: ./mysql
     environment:
-      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-greatappdb}
     volumes:
-      - ./mysql/db:/var/lib/mysql
+      # 名前付きボリューム。以前はホストの ./mysql/db を使っていたため、
+      # サーバーのTLS秘密鍵を含むデータがリポジトリに入ってしまっていた。
+      - db:/var/lib/mysql
+      # 初回起動時にスキーマを自動作成する
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
   php:
     build: ./php
     ports:
       - "80:80"
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-greatappdb}
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
+      APP_PASSWORD_SALT_SECRET: ${APP_PASSWORD_SALT_SECRET:?set APP_PASSWORD_SALT_SECRET in .env}
     volumes:
       - ./html:/var/www/html
     depends_on:
@@ -18,9 +29,9 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=pass
+      - PMA_HOST=${MYSQL_HOST:-mysql}
+      - PMA_USER=${MYSQL_USER:-root}
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
     links:
       - mysql
     ports:

@@ -7,17 +7,21 @@ function get_sha256($target) {
     return hash('sha256', $target);
 }
 
-//salt＋ハッシュ化したパスワードを取得
-// function get_salted_password($password)
-// {
-//     $secret = 'vnqw495asdaAGqt';
-//     $salt = get_sha256($secret);
-//     return get_sha256($salt . $password);
-// }
-//salt + ストレッチングしたパスワードを取得(推奨)
+//salt + ストレッチングしたパスワードを取得
+//
+// saltのもとになるシークレットは環境変数から読み込みます。
+// 以前はこのファイルに直接書いていたため、公開リポジトリに含まれていました。
+// 値は docker-compose.yml が .env から渡します（.env.example を参照）。
+function get_password_salt_secret() {
+    $secret = getenv('APP_PASSWORD_SALT_SECRET');
+    if ($secret === false || $secret === '') {
+        exit('APP_PASSWORD_SALT_SECRET が設定されていません。.env.example を .env にコピーして設定してください。');
+    }
+    return $secret;
+}
+
 function get_stretched_password($password) {
-    $secret = 'this is my secret app';
-    $salt = get_sha256($secret);
+    $salt = get_sha256(get_password_salt_secret());
     $retval = '';
     for ($i = 0; $i < STRETCH_COUNT; $i++) {
         $retval = get_sha256($retval . $salt . $password);
